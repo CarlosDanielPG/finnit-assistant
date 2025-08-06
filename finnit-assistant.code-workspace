@@ -1,0 +1,100 @@
+{
+  "folders": [
+    {
+      "name": "🪵 Root",
+      "path": ".",
+    },
+    {
+      "name": "📱 App",
+      "path": "./apps/finnit-app",
+    },
+    {
+      "name": "⚙️ API",
+      "path": "./apps/api",
+    },
+    {
+      "name": "🎨 UI",
+      "path": "./packages/ui",
+    },
+    {
+      "name": "💾 Database",
+      "path": "./packages/database",
+    },
+    {
+      "name": "Typescript Config",
+      "path": "./packages/typescript-config",
+    },
+    {
+      "name": "ESLint Config",
+      "path": "./packages/eslint-config",
+    },
+  ],
+  "settings": {
+    "window.title": "Finnit Assistant Workspace",
+    "files.exclude": {
+      "node_modules/": false,
+      ".gitignore": false,
+    },
+    "workbench.colorCustomizations": {
+      "titleBar.activeBackground": "#6272A4",
+      "titleBar.activeForeground": "#FFFFFF",
+    },
+    "workbench.editor.tabSizing": "fixed",
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+      "*.tsx": "${capture}.types.ts, ${capture}.styles.ts, ${capture}.test.ts, ${capture}.test.tsx",
+      "*.ts": "${capture}.types.ts, ${capture}.test.ts",
+      "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, .npmrc, .yarnrc, .nvmrc",
+      "tailwind.config.ts": "postcss.config.js",
+      ".env.example": ".env.example",
+      ".env": ".env, .env.local, .env.preview, .env.staging, .env.development, .env.production",
+      "README.md": "LICENSE, CHANGELOG.md, CONTRIBUTING.md",
+    },
+    "workbench.editor.labelFormat": "short",
+    "workbench.tree.indent": 20,
+    "workbench.tree.renderIndentGuides": "always",
+    "workbench.colorTheme": "Dracula Theme",
+    "workbench.iconTheme": "material-icon-theme",
+    "material-icon-theme.folders.associations": {
+      "components": "./packages/ui",
+    },
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "eslint.workingDirectories": ["."],
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.rulers": [80],
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    "editor.linkedEditing": true,
+    "editor.suggestSelection": "first",
+    "editor.wordWrap": "on",
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "importSorter.generalConfiguration.sortOnBeforeSave": false,
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "prettier.configPath": ".prettierrc",
+    "prettier.documentSelectors": ["**/*.{js,jsx,ts,tsx,json,mjs}"],
+  },
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "rvest.vs-code-prettier-eslint",
+      "esbenp.prettier-vscode",
+      "gruntfuggly.todo-tree",
+      "folke.vscode-monorepo-workspace",
+      "pflannery.vscode-versionlens",
+      "kuscamara.remove-unused-imports",
+      "mike-co.import-sorter",
+      "bradlc.vscode-tailwindcss",
+      "pkief.material-icon-theme",
+    ],
+  },
+}

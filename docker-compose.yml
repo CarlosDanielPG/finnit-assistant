@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: finnit-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: finnit_db
+      POSTGRES_USER: finnit_user
+      POSTGRES_PASSWORD: finnit_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./packages/database/init:/docker-entrypoint-initdb.d
+    networks:
+      - finnit-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finnit_user -d finnit_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Opcional: pgAdmin para administración visual de la base de datos
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: finnit-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@finnit.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - finnit-network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  finnit-network:
+    driver: bridge
