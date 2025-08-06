@@ -4,6 +4,8 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "start:api": "turbo run start:dev --filter=@finnit/api",
+    "api:dev": "turbo run build --filter=@finnit/database && turbo run start:dev --filter=@finnit/api",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types"
