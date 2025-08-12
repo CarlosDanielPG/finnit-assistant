@@ -1,56 +1,120 @@
-
-# 📝 Product Requirements Document (PRD) - Finnit Assistant (MVP)
+# 📝 Product Requirements Document (PRD) – Finnit Assistant (MVP)
 
 ## 🧠 Project Overview
 
-**Finnit Assistant** is a cross-platform personal finance assistant designed to help users track their income, expenses, and debts, and receive personalized recommendations to improve their financial health. Unlike traditional finance managers, Finnit aims to assist users with strategic decision-making, debt prioritization, and actionable financial advice, powered by automation and AI.
+**Finnit Assistant** is a cross-platform personal finance assistant designed to simplify financial tracking, planning, and decision-making. It helps users manage **income, expenses, debts, savings, and projections** through a guided, interactive experience.
+Unlike traditional finance apps, Finnit focuses on **personalized recommendations**, **strategic debt management**, and **cash flow projections** — combining automation, AI-assisted categorization, and seamless bank integrations.
 
 ---
 
-## 🎯 Goal of the MVP
+## 🎯 MVP Goal
 
-Build a working prototype that allows a user to:
+Deliver a functional prototype that allows a user to:
 
-1. Register and authenticate securely.
-2. Record income, expenses, and debts.
-3. View financial summaries and analytics.
-4. Receive simple suggestions for improving their financial status.
-5. Upload and store related financial documents.
+1. **Easily set up accounts and cards** with guided onboarding.
+2. **Track income, expenses, transfers, and debts** with minimal friction.
+3. **Connect to banks or fintechs** for automatic transaction import.
+4. **View insights, budgets, and cash flow projections** in a clear dashboard.
+5. **Receive contextual recommendations** and reminders for better financial health.
+6. **Attach receipts and supporting documents** to transactions.
+7. **Project different financial scenarios** with a “What If” simulator.
 
 ---
 
 ## ✅ Core Features (MVP)
 
-### 1. **User Authentication**
-- Sign up / login with JWT-based auth.
-- Password hashing and session tokens.
+### 1. User Authentication & Security
+- [ ] Sign up/login with secure JWT-based auth.
+- [ ] Password hashing, refresh tokens, and session handling.
+- [ ] Single-tenant per account, roles: `owner`.
+- [ ] Privacy guarantee: user data fully isolated.
+- [ ] Account recovery via email.
 
-### 2. **Transactions**
-- Create income or expense transactions.
-- Categorize transactions (food, rent, etc).
-- View transaction history and summaries.
-- Detect and flag recurring transactions.
+---
 
-### 3. **Debts**
-- Register debts (credit cards, loans, etc).
-- View total debt, minimum payment, interest.
-- Track payment history.
+### 2. Accounts & Balances
+- [ ] Guided account creation with explanations of account types (cash, debit, credit, savings, e-wallets).
+- [ ] Optional card photo scan to auto-fill details (name, last 4 digits, bank, color).
+- [ ] Suggestions for default accounts (e.g., “Always create a cash account”).
+- [ ] Balance adjustments without generating false income/expense.
+- [ ] “Balance correction” transaction type for transparency.
+- [ ] Clear difference between transfers and transactions, with examples.
+- [ ] Automatic detection of internal transfers for linked accounts.
 
-### 4. **Dashboard**
-- Summary of:
-  - Current balance
-  - Monthly income vs. expenses
-  - Outstanding debts
-- Simple financial health score.
+---
 
-### 5. **GraphQL API**
-- Single endpoint serving all client apps.
-- Query/mutation support for all core features.
-- JWT-based context and guard support.
+### 3. Transactions
+- [ ] Quick add: date, account, amount, type (income/expense/transfer), category.
+- [ ] Smart capture: receipt photos, SMS/notification parsing (where allowed).
+- [ ] Auto-categorization based on merchant name with user learning.
+- [ ] Recurring entries as reminders until confirmed as paid.
+- [ ] Option to mark recurring payments as completed with proof.
+- [ ] Auto-suggestion of recurrence from detected patterns.
+- [ ] Calendar view + optional mobile widget.
+- [ ] Attachments for receipts, invoices, payment confirmations.
+- [ ] Integration with Banxico for CEP retrieval (interbank transfers).
+- [ ] Search & filter by date, account, category, text.
 
-### 6. **File Upload**
-- Upload receipts, invoices, or documents.
-- Store files securely in AWS S3.
+---
+
+### 4. Categories
+- [ ] Default hierarchical category list (e.g., “Food > Groceries”).
+- [ ] CRUD for user-defined categories with interactive UI.
+- [ ] Merchant “memory rules” for auto-categorization.
+
+---
+
+### 5. Budgets
+- [ ] Monthly and category-based budgets.
+- [ ] Budget assistant that considers fixed expenses and historical spending.
+- [ ] Real-time tracking with supportive suggestions.
+- [ ] Alerts at 80%/100% usage with advice.
+
+---
+
+### 6. Debts & Credit Cards
+- [ ] Guided registration for debts (loans, credit cards).
+- [ ] Pre-filled parameters for known banks (editable).
+- [ ] Custom interest rates for loans.
+- [ ] Credit cards as special accounts with statement/payment dates.
+- [ ] Avalanche and snowball payoff strategies with explanations.
+- [ ] Calendar-based repayment plan.
+
+---
+
+### 7. Goals & Savings
+- [ ] Goal setup with target amount and due date.
+- [ ] Manual contributions and progress tracking.
+- [ ] Suggestions to save when projected end-of-month balance is positive.
+
+---
+
+### 8. Reports & Insights
+- [ ] Monthly summary: income, expenses by category, net balance.
+- [ ] Insights: top categories, unusual expenses, comparisons.
+- [ ] 3–6 month trends.
+- [ ] CSV export.
+
+---
+
+### 9. Bank & Fintech Integrations
+- [ ] Integration with Belvo, Paybook, or similar for auto-import.
+- [ ] Weekly reconciliation for balances and transactions.
+- [ ] Detection of internal transfers between linked accounts.
+
+---
+
+### 10. Cash Flow & Projections
+- [ ] Cash flow forecast for 30/60 days with recurring transactions, debts, and goals.
+- [ ] “What If” simulations for extra payments, income changes, or new expenses.
+
+---
+
+### 11. Essential Notifications
+- [ ] Budget usage alerts (80%/100%).
+- [ ] Upcoming credit card/loan payments.
+- [ ] Recurring transaction reminders.
+- [ ] Weekly/monthly summaries.
 
 ---
 
@@ -64,43 +128,35 @@ Build a working prototype that allows a user to:
 | DB           | PostgreSQL (Railway)|
 | Storage      | AWS S3             |
 | Hosting      | Vercel (FE) + Railway (BE) |
+| Bank APIs    | Belvo / Paybook    |
 
 ---
 
-## 🗂️ Entities & Data Models
+## 🗂️ Entities & Data Models (High-level)
 
-- **User**
-  - id, name, email, passwordHash
-- **Transaction**
-  - id, userId, type (income/expense), amount, category, date, description
-- **Debt**
-  - id, userId, name, amount, interestRate, dueDate, minPayment, payments[]
-- **Payment**
-  - id, debtId, amount, date
-- **File**
-  - id, userId, fileUrl, type, uploadedAt
+- **User**: id, name, email, passwordHash
+- **Account**: id, userId, type, name, balance, currency, metadata
+- **Transaction**: id, accountId, type, amount, categoryId, date, description, attachmentUrl
+- **Category**: id, userId, parentId, name
+- **Debt**: id, userId, name, principal, interestRate, minPayment, statementDate, dueDate
+- **Goal**: id, userId, name, targetAmount, dueDate, currentAmount
+- **Notification**: id, userId, type, title, message, status
+- **Attachment**: id, transactionId, fileUrl, fileType, uploadedAt
 
 ---
 
 ## 📈 Metrics of Success
-
-- MVP deployed and usable by a single user account.
-- User can register, login, and create/view transactions and debts.
-- Financial dashboard renders correct totals and insights.
-- GraphQL API is secured and usable by frontend and mobile apps.
-- System is hosted with CI/CD enabled.
-
----
-
-## 🔄 Not in scope (for MVP)
-
-- Multi-user support / shared accounts
-- Bank API integrations
-- Advanced AI recommendation engine
-- Notifications and reminders
-- Offline support
-- Subscription/payment model
+- [ ] 80%+ of users complete account setup in < 5 minutes.
+- [ ] 70%+ of users connect at least one bank account.
+- [ ] Users log ≥ 10 transactions in their first month.
+- [ ] ≥ 85% auto-categorization accuracy after 1 month (with feedback).
+- [ ] Cash flow projection used by 50%+ of active users monthly.
 
 ---
 
-This document is the foundational reference for the MVP phase and should be used by AI agents (Claude/Cursor), developers and contributors for task planning and execution.
+## 🔄 Out of Scope (for MVP)
+- Multi-user/shared accounts.
+- Advanced AI recommendations beyond categorization.
+- Tax reporting tools.
+- Offline mode.
+- Subscription billing.
