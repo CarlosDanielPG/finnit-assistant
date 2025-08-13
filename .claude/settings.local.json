@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "mode": "auto"
+  },
+  "tools": {
+    "allow": [
+      "Bash(npm i:*)", "Bash(npm install:*)", "Bash(yarn add:*)", "Bash(pnpm add:*)",
+      "Bash(git checkout:*)", "Bash(git switch:*)", "Bash(git add:*)",
+      "Bash(git commit:*)", "Bash(git push:*)", "Bash(git status:*)",
+      "Bash(prisma:*)", "Bash(npx prisma:*)", "Bash(turbo:*)", "Bash(yarn:*)",
+      "Edit", "Write", "MultiEdit", "Read"
+    ]
+  },
+  "$schema": "https://json.schemastore.org/claude-code-settings.json"
+}
