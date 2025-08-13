@@ -16,7 +16,6 @@
 
 ### **Database**
 - **Option 1:** PostgreSQL (preferred)
-- **Option 2:** MySQL (alternative if needed)
 - **Managed by:** Railway.app
 
 ### **Storage**
